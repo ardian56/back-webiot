@@ -4,7 +4,8 @@
       { "src": "/main.js", "use": "@vercel/node" }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/main.js" },
+      { "src": "/simpan", "dest": "/main.js" },
+      { "src": "/latest-timer", "dest": "/main.js" },
       { "src": "/(.*)", "dest": "/public/index.html" }
     ]
   }
