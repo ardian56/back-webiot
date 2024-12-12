@@ -1,11 +1,11 @@
 {
   "version": 2,
   "builds": [
-    { "src": "index.js", "use": "@vercel/node" }
+    { "src": "main.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/simpan", "dest": "/index.js" },
-    { "src": "/latest-timer", "dest": "/index.js" },
+    { "src": "/simpan", "dest": "/main.js" },
+    { "src": "/latest-timer", "dest": "/main.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }
