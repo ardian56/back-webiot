@@ -16,7 +16,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/simpan', async (req, res) => {
+app.post('/save', async (req, res) => {
     const { tanggal, jam } = req.body;
 
     try {
@@ -27,8 +27,7 @@ app.post('/simpan', async (req, res) => {
         if (error) {
             throw error;
         }
-
-        res.redirect('/');
+        
     } catch (error) {
         console.error('Error inserting data:', error);
         res.status(500).send('Gagal menyimpan data.');
@@ -56,6 +55,23 @@ app.get('/latest-timer', async (req, res) => {
         console.error('Error fetching latest timer:', error);
         res.status(500).json({ error: 'Failed to fetch latest timer data' });
     }
+});
+
+app.get('/log-history', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('timer')
+      .select('*')
+      .order('id', { ascending: false })
+      .limit(50); // Limit to last 50 entries
+    
+    if (error) throw error;
+    
+    res.json(data || []);
+  } catch (error) {
+    console.error('Error fetching log history:', error);
+    res.status(500).json({ error: 'Failed to fetch log history' });
+  }
 });
 
 app.listen(port, () => {
