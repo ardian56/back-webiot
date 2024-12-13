@@ -16,7 +16,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/simpan', async (req, res) => {
+app.post('/save', async (req, res) => {
     const { tanggal, jam } = req.body;
 
     try {
@@ -27,8 +27,7 @@ app.post('/simpan', async (req, res) => {
         if (error) {
             throw error;
         }
-
-        res.redirect('/');
+        
     } catch (error) {
         console.error('Error inserting data:', error);
         res.status(500).send('Gagal menyimpan data.');
