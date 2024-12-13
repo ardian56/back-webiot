@@ -1,0 +1,25 @@
+# Environment Files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.env
+
+# Sensitive Information
+*.pem
+*.key
+
+# Dependency Directories
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
