@@ -1,21 +1,20 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { createClient } from '@supabase/supabase-js';
-import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const SUPABASE_URL = 'https://bnohnwaewyhlctftcpqz.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJub2hud2Fld3lobGN0ZnRjcHF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5NzExMTIsImV4cCI6MjA0OTU0NzExMn0.gnElfIw4eLBUFRMLWovUY1ayalD4lJiSkSSt5WtgD2I';
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(bodyParser.json());
-
-app.use(express.static('public'));
 
 app.post('/simpan', async (req, res) => {
     const { tanggal, jam } = req.body;
@@ -23,15 +22,13 @@ app.post('/simpan', async (req, res) => {
     try {
         const { data, error } = await supabase
             .from('timer')
-            .insert([
-                { tanggal: tanggal, jam: jam }
-            ]);
+            .insert([{ tanggal, jam }]);
 
         if (error) {
             throw error;
         }
 
-        res.redirect('/'); 
+        res.redirect('/');
     } catch (error) {
         console.error('Error inserting data:', error);
         res.status(500).send('Gagal menyimpan data.');
@@ -61,11 +58,8 @@ app.get('/latest-timer', async (req, res) => {
     }
 });
 
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`API server running on port ${port}`);
 });
+
+export default app;
