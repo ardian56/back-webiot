@@ -1,18 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
-app.use(cors({
-  origin: [
-    'hhttps://front-webiot.vercel.app' 
-  ],
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
 
 const app = express();
 const port = process.env.PORT || 3000;
