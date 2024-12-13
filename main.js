@@ -57,6 +57,23 @@ app.get('/latest-timer', async (req, res) => {
     }
 });
 
+app.get('/log-history', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('timer')
+      .select('*')
+      .order('id', { ascending: false })
+      .limit(50); // Limit to last 50 entries
+    
+    if (error) throw error;
+    
+    res.json(data || []);
+  } catch (error) {
+    console.error('Error fetching log history:', error);
+    res.status(500).json({ error: 'Failed to fetch log history' });
+  }
+});
+
 app.listen(port, () => {
     console.log(`API server running on port ${port}`);
 });
