@@ -76,4 +76,4 @@ app.get('/log-history', async (req, res) => {
   }
 });
 
-export default app; // Penting: Export app tanpa app.listen
+export default app;
