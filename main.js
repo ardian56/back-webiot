@@ -36,13 +36,13 @@ app.post('/save', async (req, res) => {
   }
 });
 
-app.get('/latest-timers', async (req, res) => {
+app.get('/latest-timer', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('timer')
       .select('tanggal, jam')
       .order('id', { ascending: false })
-      .limit(10);
+      .limit(3);
 
     if (error) {
       throw error;
