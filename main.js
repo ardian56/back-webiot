@@ -36,28 +36,29 @@ app.post('/save', async (req, res) => {
   }
 });
 
-app.get('/latest-timer', async (req, res) => {
+app.get('/latest-timers', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('timer')
       .select('tanggal, jam')
       .order('id', { ascending: false })
-      .limit(3);
+      .limit(10);
 
     if (error) {
       throw error;
     }
 
     if (data.length > 0) {
-      res.json(data[0]);
+      res.json(data);
     } else {
       res.json({ error: 'No data found' });
     }
   } catch (error) {
-    console.error('Error fetching latest timer:', error);
-    res.status(500).json({ error: 'Failed to fetch latest timer data' });
+    console.error('Error fetching latest timers:', error);
+    res.status(500).json({ error: 'Failed to fetch latest timers data' });
   }
 });
+
 
 app.get('/log-history', async (req, res) => {
   try {
