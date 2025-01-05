@@ -49,13 +49,13 @@ app.get('/latest-timer', async (req, res) => {
     }
 
     if (data.length > 0) {
-      res.json(data);
+      res.json(data[0]);
     } else {
       res.json({ error: 'No data found' });
     }
   } catch (error) {
-    console.error('Error fetching latest timers:', error);
-    res.status(500).json({ error: 'Failed to fetch latest timers data' });
+    console.error('Error fetching latest timer:', error);
+    res.status(500).json({ error: 'Failed to fetch latest timer data' });
   }
 });
 
