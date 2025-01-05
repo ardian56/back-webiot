@@ -42,7 +42,7 @@ app.get('/latest-timer', async (req, res) => {
       .from('timer')
       .select('tanggal, jam')
       .order('id', { ascending: false })
-      .limit(3);
+      .limit(1);
 
     if (error) {
       throw error;
